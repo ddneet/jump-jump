@@ -1,0 +1,86 @@
+# -*- coding: cp936 -*-
+import time
+import os
+import numpy
+import random
+
+def screenshot(id):
+    os.system('adb shell screencap -p /sdcard/%s.png' % str(id))
+    os.system('adb pull /sdcard/%s.png D:/00/shotpic' % str(id))
+
+def jump(distance):
+    press_time = int(distance * 2)
+    print(str(press_time))
+    rand = random.randint(0, 9) * 10
+    cmd = ('adb shell input swipe %i %i %i %i ' + str(press_time)) \
+          % (320 + rand, 410 + rand, 320 + rand, 410 + rand)
+    os.system(cmd)
+    #print(cmd)
+
+
+#³õÊ¼»¯
+fdis=open('D:/00/shotpic/distance.txt','w')
+fdis.write('stop')
+fdis.close()
+fid=open('D:/00/shotpic/id.txt','w')
+fid.write('0')
+fid.close()
+
+sid='0'
+id=0
+while int(sid)>=0 :
+    fdis=open('D:/00/shotpic/distance.txt','r')
+    sdis=fdis.read()
+    print(sdis)
+    fdis.close()
+
+    fid=open('D:/00/shotpic/id.txt','r')
+    sid=fid.read()
+    print(sid)
+    fid.close()
+
+    if(int(sid)==0):
+        # jump the first time
+        jump(345)
+        fdis=open('D:/00/shotpic/distance.txt','w')
+        fdis.write('start')
+        fdis.close()
+        time.sleep(2)
+        screenshot(1)
+        fid=open('D:/00/shotpic/id.txt','w')
+        fid.write('1')
+        fid.close()
+        id=1
+    elif(int(sid)>id):
+        id=int(sid)+1
+        print("sid "+sid+"  id "+str(id))
+        
+        disj=float(sdis)
+        print(str(disj))
+        
+        jump(disj)
+        time.sleep(2)
+        screenshot(id)
+        if(id>5):
+            os.system('adb shell rm /sdcard/%s.png' % str(id-4))
+        fid=open('D:/00/shotpic/id.txt','w')
+        fid.write('%s' % str(id))
+        fid.close()
+    elif(int(sid)==id):
+        time.sleep(1.3)
+        
+else:
+    # exit
+    screenshot('res')
+    fdis=open('D:/00/shotpic/distance.txt','w')
+    fdis.write('stop')
+    fdis.close()
+    fid=open('D:/00/shotpic/id.txt','w')
+    fid.write('0')
+    fid.close()
+
+
+
+    
+
+
