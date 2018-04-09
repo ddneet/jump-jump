@@ -7,9 +7,8 @@ fid=fopen('D:\00\shotpic\distance.txt','w');
 fprintf(fid,'stop');
 fclose(fid);
 
-mid=0;%center=[(720-750/2)*2,1305];
+mid=0;
 player=im2double(imread('D:\00\prepic\player2.png'));
-% point=im2double(imread('D:\00\prepic\white_circle.png'));
 isend=0;
 while isend==0
     load('D:\00\shotpic\id.txt')
@@ -23,10 +22,8 @@ while isend==0
         if x>0 && y>0
             [tx,ty]=match_point(shot);
             if tx==0 && ty==0
-                [tx,ty]=cal_tarpos(rgb2gray(shot));
+                [tx,ty]=cal_tarpos(rgb2gray(shot),x,y,mid);
             end
-%             distance=abs(center(2)-x-x)*abs(center(2)-x-x)+abs(center(1)-y-y)*abs(center(1)-y-y);
-%             distance=sqrt(distance);
             distance=(tx-x)*(tx-x)+(ty-y)*(ty-y);
             distance=sqrt(distance);
             pause(1);
