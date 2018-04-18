@@ -20,7 +20,7 @@ while isend==0
         
         [x,y]=match(player,shot);
         if x>0 && y>0
-            [tx,ty]=match_point(shot);
+            [tx,ty]=match_point(shot,y);
             if tx==0 && ty==0
                 [tx,ty]=cal_tarpos(rgb2gray(shot),x,y,mid);
             end
@@ -41,6 +41,6 @@ while isend==0
             fclose(fid);
         end
     else
-        pause(0.7);
+        pause(1.1);
     end
 end

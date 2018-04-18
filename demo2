@@ -9,7 +9,7 @@ def screenshot(id):
     os.system('adb pull /sdcard/%s.png D:/00/shotpic' % str(id))
 
 def jump(distance):
-    press_time = int(distance * 2.05)
+    press_time = int(distance * 2)
     print(str(press_time))
     rand = random.randint(0, 9) * 10
     cmd = ('adb shell input swipe %i %i %i %i ' + str(press_time)) \
@@ -43,7 +43,7 @@ while int(sid)>=0 :
 
     if(int(sid)==0):
         # jump the first time
-        jump(350)
+        jump(355)
         fdis=open('D:/00/shotpic/distance.txt','w')
         fdis.write('start')
         fdis.close()
@@ -69,7 +69,7 @@ while int(sid)>=0 :
         fid.write('%s' % str(id))
         fid.close()
     elif(int(sid)==id):
-        time.sleep(1.3)
+        time.sleep(3.7)
         
 else:
     # exit

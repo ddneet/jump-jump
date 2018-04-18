@@ -10,7 +10,8 @@ end
 stay=min(nony);
 cx=find(DT(stay,:)==1);
 cerx=round(mean(cx));
-if max(size(cx))<10 && id<150
+DT(stay,cerx)=0;
+if max(size(cx))<15 && id<130
     DT([stay:stay+50],cerx)=0;
 end
 cery=min(find(DT(:,cerx)==1))+stay;
